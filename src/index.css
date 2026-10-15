@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+
+  --color-cream-50: #fffcf8;
+  --color-cream-100: #fbf5ee;
+  --color-cream-200: #f3e8db;
+  --color-cream-300: #e8d6c2;
+
+  --color-blush-50: #fdf3f5;
+  --color-blush-100: #f9e1e7;
+  --color-blush-200: #f2c6d1;
+  --color-blush-300: #e8a5b5;
+  --color-blush-400: #d97f97;
+  --color-blush-500: #c45e7b;
+  --color-blush-600: #a6475f;
+  --color-blush-700: #86384c;
+
+  --color-lilac-50: #f7f3fa;
+  --color-lilac-100: #ece4f3;
+  --color-lilac-200: #d9c9e7;
+  --color-lilac-300: #bea4d4;
+  --color-lilac-500: #8b6f9e;
+  --color-lilac-700: #5e4870;
+
+  --color-cocoa-500: #8a7268;
+  --color-cocoa-700: #5b4741;
+  --color-cocoa-900: #3a2c28;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-cream-50 font-sans text-cocoa-900 antialiased;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display text-cocoa-900;
+    line-height: 1.2;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-lilac-300);
+    outline-offset: 2px;
+  }
+}
+
+/* Componentes reutilizáveis (no Tailwind v4, classes aplicáveis via @apply são @utility) */
+@utility btn {
+  @apply inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-full px-5 py-2.5 text-center text-base font-bold transition disabled:cursor-not-allowed disabled:opacity-60;
+}
+@utility btn-primary {
+  @apply btn bg-blush-500 text-white shadow-sm hover:bg-blush-600 active:bg-blush-700;
+}
+@utility btn-secondary {
+  @apply btn border-2 border-blush-200 bg-white text-blush-700 hover:border-blush-300 hover:bg-blush-50;
+}
+@utility btn-ghost {
+  @apply btn text-cocoa-700 hover:bg-cream-200;
+}
+@utility btn-danger {
+  @apply btn border-2 border-red-200 bg-white text-red-700 hover:bg-red-50;
+}
+@utility card {
+  @apply rounded-3xl border border-cream-200 bg-white shadow-[0_2px_18px_-8px_rgba(90,60,50,0.18)];
+}
+@utility input {
+  @apply w-full rounded-2xl border-2 border-cream-200 bg-white px-4 py-3 text-base text-cocoa-900 placeholder:text-cocoa-500/70 focus:border-lilac-300 focus:outline-none;
+}
+@utility label {
+  @apply mb-1.5 block text-sm font-bold text-cocoa-700;
+}
+@utility chip {
+  @apply inline-flex cursor-pointer items-center gap-1 rounded-full border-2 px-4 py-2 text-sm font-bold transition;
+}
+@utility chip-off {
+  @apply chip border-cream-200 bg-white text-cocoa-700 hover:border-blush-200;
+}
+@utility chip-on {
+  @apply chip border-blush-400 bg-blush-50 text-blush-700;
+}
+@utility section-title {
+  @apply mb-3 font-display text-xl font-semibold text-blush-700;
+}
+
+/* Fundo com textura sutil de pontos */
+.bg-stitches {
+  background-color: var(--color-cream-100);
+  background-image: radial-gradient(var(--color-blush-100) 1.2px, transparent 1.2px);
+  background-size: 18px 18px;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white;
+    font-size: 11pt;
+  }
+  .print-break {
+    break-before: page;
+  }
+  .card {
+    box-shadow: none;
+    border: none;
+  }
+  .avoid-break {
+    break-inside: avoid;
+  }
+}
