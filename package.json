@@ -2,7 +2,6 @@
   "name": "receitas-croche-ia",
   "private": true,
   "version": "1.0.0",
-  "type": "module",
   "description": "Plataforma de geração de receitas de crochê e amigurumi com IA e validação matemática de carreiras.",
   "scripts": {
     "dev": "vite",
