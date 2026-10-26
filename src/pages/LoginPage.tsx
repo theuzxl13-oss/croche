@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { Navigate, useSearchParams } from "react-router";
 import { useAuth } from "../hooks/useAuth";
-import { isSupabaseConfigured, requireSupabase } from "../lib/supabase";
+import { isSupabaseConfigured, requireSupabase, supabaseHost } from "../lib/supabase";
 import { ErrorBox, YarnBall, errorMessage } from "../components/ui";
 
 type Mode = "entrar" | "cadastrar" | "link";
@@ -12,6 +12,13 @@ function translateAuthError(message: string): string {
   if (/already registered/i.test(message)) return "Este e-mail já tem cadastro. Use a opção Entrar.";
   if (/password should be at least/i.test(message)) return "A senha precisa ter pelo menos 6 caracteres.";
   if (/rate limit/i.test(message)) return "Muitas tentativas. Aguarde alguns minutos.";
+  if (/failed to fetch|networkerror|load failed|fetch failed/i.test(message)) {
+    return (
+      `Não foi possível conectar ao Supabase (${supabaseHost ?? "URL não definida"}). ` +
+      "Confira se VITE_SUPABASE_URL é a Project URL (https://xxxx.supabase.co), se o projeto não está pausado " +
+      "no painel do Supabase e se algum bloqueador de anúncios não está barrando a conexão."
+    );
+  }
   return message;
 }
 
